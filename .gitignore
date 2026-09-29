@@ -1,0 +1,18 @@
+# dependencias
+node_modules/
+
+# build
+.next/
+out/
+
+# entorno (no se sube)
+.env
+.env.local
+.env*.local
+
+# prisma
+generated/
+
+# sistema
+.DS_Store
+*.log

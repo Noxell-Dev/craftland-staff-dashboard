@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum TaskStatus {
+  PENDIENTE
+  EN_CURSO
+  HECHA
+}
+
+enum Priority {
+  BAJA
+  MEDIA
+  ALTA
+}
+
+// Bóveda de contraseñas: el servidor solo guarda metadatos en claro y el
+// secreto cifrado (AES-256-GCM). La clave se deriva de la contraseña maestra
+// en el navegador y NUNCA viaja al servidor (cifrado de conocimiento cero).
+model VaultEntry {
+  id        Int      @id @default(autoincrement())
+  title     String
+  username  String?
+  url       String?
+  category  String   @default("General")
+  iv        String   // base64, vector de inicialización del cifrado
+  data      String   // base64, JSON cifrado { password, notes }
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Verificador de la contraseña maestra de la bóveda: sal + un secreto
+// cifrado conocido ("craftland-vault-ok"). Sin esto no se puede comprobar
+// la contraseña sin tener ya secretos guardados.
+model VaultCheck {
+  id   Int    @id @default(autoincrement())
+  salt String // base64, sal de PBKDF2
+  iv   String // base64
+  data String // base64, secreto de verificación cifrado
+}
+
+model Expense {
+  id        Int      @id @default(autoincrement())
+  title     String
+  amount    Float // euros
+  category  String   @default("Servidor")
+  date      DateTime @default(now())
+  recurring Boolean  @default(false)
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Income {
+  id        Int      @id @default(autoincrement())
+  title     String
+  amount    Float // euros
+  source    String   @default("Tienda")
+  date      DateTime @default(now())
+  buyer     String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String?
+  status      TaskStatus @default(PENDIENTE)
+  priority    Priority   @default(MEDIA)
+  assignee    String?
+  dueDate     DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}

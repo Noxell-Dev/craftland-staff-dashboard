@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <polygon points="10,2 54,2 62,10 62,54 54,62 10,62 2,54 2,10" fill="#0d0d0f"/>
+  <polygon points="10,2 54,2 62,10 62,54 54,62 10,62 2,54 2,10" fill="none" stroke="#8a2be2" stroke-width="4"/>
+  <text x="32" y="44" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="34" font-weight="900" fill="#b44df0">C</text>
+</svg>

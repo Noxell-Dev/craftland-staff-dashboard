@@ -1,5 +1,5 @@
 -- Craftland Staff · SQL completo de creación (ejecutar UNA SOLA VEZ en el
--- SQL Editor de Supabase). Crea las 6 tablas del panel.
+-- SQL Editor de Supabase). Crea las 5 tablas del panel.
 -- Si la base ya existe de antes, ejecuta solo los archivos nuevos de
 -- prisma/migrations/ en orden en lugar de este.
 
